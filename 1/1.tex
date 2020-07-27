@@ -2,6 +2,7 @@
 
 با توجه به صحبت‌های انجام‌شده نیازی به آوردن اسکرین‌شات‌های این قسمت نیست.
 
+\newpage
 \سؤال{آشنایی با دستورات پایه‌ی لینوکس}
 \begin{enumerate}
 	\item 
@@ -123,4 +124,60 @@
 	\begin{code}
 		> find . -name mybook.txt  -ls | awk '{print \$1}' 
 	\end{code}
+\end{itemize}
+
+\newpage
+
+\سؤال{اعمال تغییرات و کامپایل مجدد هسته‌ی سیستم‌عامل}
+
+\begin{itemize}
+	\item
+		 با توجه به صحبت‌های انجام شده از طریق ایمیل و قدیمی بودن کد منبع هسته‌ی موجود در آزمایش نسخه‌ی ۵.۴ با کمک دستور زیر نصب شده است:
+		
+		\begin{code}
+			> sudo apt-get install linux-source-5.4.0
+		\end{code}
+
+	\item
+		 	پس از نصب وارد پوشه‌ی \lr{linux-source-5.4.0} می‌شویم. قبل از کامپایل کردن هسته\footnote{kernel} ابتدا باید ماژول‌های مورد نیاز را مشخص کنیم. برای این‌کار می‌توان از پیکربندی\footnote{configuration} موجود در کرنل فعلی استفاده کنیم. برای این کار باید زیر استفاده کرد:
+		
+		\begin{code}
+			> cp /boot/config-\$(uname -r) .config
+		\end{code}	
+	\item
+		در صورت نیاز به اعمال دیگر تغییرات می‌توان از دستور \lr{\lstinline{make menuconfig}} استفاده کرد تا ماژول‌های مورد نظر را فعال یا غیرفعال کنیم.
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.4]{d2.jpeg}
+		\caption{استفاده از دستور \lr{make menuconfig}}
+	\end{figure}
+	
+	
+	\item 
+		حال که ماژول‌های مورد استفاده تعیین شده‌اند، اولین قدم در کامپایل کردن هسته‌ی سیستم‌عامل، استفاده از دستور \lr{make}	 است.
+		\begin{figure}[!h]
+			\centering
+			\includegraphics[scale=0.4]{d1.jpeg}
+			\caption{استفاده از دستور \lr{make}}
+		\end{figure}
+		
+	\item 
+		پس از پایان دستور \lr{make} با دستور \lr{\lstinline{make modules_install}}، ماژول‌هایی تعیین‌شده، نصب می‌شوند.
+	\item 
+		با استفاده از دستور \lr{\lstinline{sudo make install}}، هسته نصب می‌شود.
+	\item 
+		برای فعال کردن هسته‌ی نصب‌شده در بوت، از فرمان زیر بهره می‌بریم:
+		\begin{code}
+			> sudo update-initramfs -c -k 5.4.0
+		\end{code}
+	\item 
+		برای اعمال تغییرات نیاز به به‌روزرسانی \lr{grub} داریم:
+		\begin{code}
+			> sudo update-grub
+		\end{code}
+	\item 
+		با راه‌اندازی مجدد \footnote{restart} کامپیوتر می‌توان هسته‌ی نصب شده را انتخاب کرد.
+		
+		
 \end{itemize}
