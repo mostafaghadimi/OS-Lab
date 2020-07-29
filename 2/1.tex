@@ -61,9 +61,9 @@
 \سؤال{اجرای ساده‌تر فراخوانی‌های سیستمی}
 	
 	\begin{Verbatim}[tabsize=4]
-include <stdio.h>
-include <unistd.h>
-include <sys/stat.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/stat.h>
 int main() {
 	long result;
 	result = mkdir("testdir", 0777);
@@ -71,3 +71,82 @@ int main() {
 	return 0;
 }
 	\end{Verbatim}
+	
+	\سؤال{آشنایی با چند فراخوان سیستمی پرکاربرد}
+	\begin{itemize}
+		
+		\item فراخوان سیستمی \lr{access}
+			\begin{Verbatim}[tabsize=4]
+#include <errno.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[])
+{
+	int result;
+	char *path = argv[1];
+	result = access(path, F_OK);
+	if (result == 0)
+	{
+		printf("%s exists\n", path);
+	}
+	else
+	{
+		printf("%s doesn't exist.", path);
+	}
+	return 0;
+}
+			\end{Verbatim}
+			
+		\item فراخوان‌های سیستمی \lr{open, close, write}
+		\begin{Verbatim}[tabsize=4]
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+
+int main() {
+	int open_result;
+	int write_result;
+	open_result = open("oslab2.txt", O_CREAT | O_WRONLY, 0777);
+	write_result = write(open_result, "Mostafa Ghadimi\n", strlen("Mostafa Ghadimi\n"));
+	close(open_result);
+	return 0;
+}
+
+		\end{Verbatim}
+		
+		\item فراخوان سیستمی \lr{sysinfo}
+			\begin{Verbatim}[tabsize=4]
+
+#include <linux/kernel.h>
+#include <stdio.h>
+#include <sys/sysinfo.h>
+
+int main()
+{
+	const double megabyte = 1024 * 1024;
+	struct sysinfo si;
+	sysinfo(&si);
+	printf("total RAM: %5.1f MB\n", si.totalram / megabyte);
+	printf("free RAM: %5.1f MB\n", si.freeram / megabyte);
+	return 0;
+}
+			\end{Verbatim}
+			
+		\item فراخوان سیستمی \lr{getrusage}
+			\begin{Verbatim}[tabsize=4]
+#include <sys/time.h>
+#include <sys/resource.h>
+#include <stdio.h>
+
+int main() {
+	struct rusage ru;
+	getrusage(RUSAGE_SELF, &ru);
+	printf("maximum resident set size: %ld\n", ru.ru_maxrss);
+	printf("integral shared memory size: %ld\n", ru.ru_ixrss);
+	printf("integral unshared stack size: %ld\n", ru.ru_isrss);
+}
+			\end{Verbatim}
+	\end{itemize}
