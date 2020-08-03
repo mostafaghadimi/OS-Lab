@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2020.7.1)  29 JUL 2020 05:41
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2020.7.1)  4 AUG 2020 01:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1389,19 +1389,79 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 78.
 
 [2]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 101.
+LaTeX Font Warning: Command \small invalid in math mode on input line 122.
 
+[3]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 120.
+LaTeX Font Warning: Command \small invalid in math mode on input line 141.
 
 Missing character: There is no ‏ in font [lmmono10-regular]:!
 Missing character: There is no ‏ in font [lmmono10-regular]:!
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 138.
+LaTeX Font Warning: Command \small invalid in math mode on input line 159.
 
-[3])
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 178.
+
+
+Overfull \hbox (2.507pt too wide) in paragraph at lines 181--182
+[][]\TU/XBZar(0)/bx/n/10.95 در ابتدا به ۲ فایل []\TU/lmroman10-regular(0)/m/n/1
+0.95 arch/x86/entry/syscalls/syscall_-64.tbl[] \TU/XBZar(0)/bx/n/10.95 و []\TU/
+lmroman10-regular(0)/m/n/10.95 arch/x86/entry/syscalls/syscall_-32.tbl[]\TU/XBZ
+ar(0)/bx/n/10.95 ،[]
+ []
+
+File: img/pic1.png Graphic file (type bmp)
+<img/pic1.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+File: img/pic2.png Graphic file (type bmp)
+<img/pic2.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+File: img/pic3.png Graphic file (type bmp)
+<img/pic3.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+File: img/pic4.png Graphic file (type bmp)
+<img/pic4.png>
+File: img/pic5.png Graphic file (type bmp)
+<img/pic5.png>
+File: img/pic6.png Graphic file (type bmp)
+<img/pic6.png>
+File: img/pic7.png Graphic file (type bmp)
+<img/pic7.png>
+[4]
+File: img/pic8.png Graphic file (type bmp)
+<img/pic8.png>
+File: img/pic9.png Graphic file (type bmp)
+<img/pic9.png>
+File: img/pic10.png Graphic file (type bmp)
+<img/pic10.png>
+File: img/pic11.png Graphic file (type bmp)
+<img/pic11.png>
+File: img/pic12.png Graphic file (type bmp)
+<img/pic12.png>
+File: img/pic13.png Graphic file (type bmp)
+<img/pic13.png>
+File: img/pic14.png Graphic file (type bmp)
+<img/pic14.png>
+File: img/pic15.png Graphic file (type bmp)
+<img/pic15.png>
+File: img/pic16.png Graphic file (type bmp)
+<img/pic16.png>
+File: img/pic4.png Graphic file (type bmp)
+<img/pic4.png>
+File: img/pic10.png Graphic file (type bmp)
+<img/pic10.png>
+File: img/pic17.png Graphic file (type bmp)
+<img/pic17.png>
+ [5])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 26.
- [4]
+ [6] [7] [8] [9] [10] [11] [12] [13] [14]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 26.
  (./report2.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 26.
@@ -1412,12 +1472,12 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 25579 strings out of 493007
- 468638 string characters out of 6136720
+ 25647 strings out of 493007
+ 469639 string characters out of 6136720
  634892 words of memory out of 5000000
- 29216 multiletter control sequences out of 15000+600000
+ 29267 multiletter control sequences out of 15000+600000
  540245 words of font info for 83 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  53i,8n,74p,10447b,757s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report2.pdf (4 pages).
+Output written on report2.pdf (14 pages).

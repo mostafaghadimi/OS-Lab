@@ -88,11 +88,32 @@ int main(int argc, char *argv[])
 	result = access(path, F_OK);
 	if (result == 0)
 	{
-		printf("%s exists\n", path);
+	printf("%s exists\n", path);
 	}
 	else
 	{
-		printf("%s doesn't exist.", path);
+	printf("%s doesn't exist\n", path);
+	}
+	result = access(path, R_OK);
+	if (result == 0) {
+	printf("read permission is granted\n");
+	}
+	else {
+	printf("read permission isn't granted\n");
+	}
+	result = access(path, W_OK);
+	if (result == 0) {
+	printf("write permission is granted\n");
+	}
+	else {
+	printf("write permission isn't granted\n");
+	}
+	result = access(path, X_OK);
+	if (result == 0) {
+	printf("execute permission is granted\n");
+	}
+	else {
+	printf("execute permission isn't granted\n");
 	}
 	return 0;
 }
@@ -149,4 +170,123 @@ int main() {
 	printf("integral unshared stack size: %ld\n", ru.ru_isrss);
 }
 			\end{Verbatim}
+	\end{itemize}
+
+\سؤال{اضافه کردن یک فراخوانی سیستمی به سیستم‌عامل}
+
+	\begin{itemize}
+		\item با توجه به لینکی که در کلاس داده شد، می‌خواهیم یک فراخوانی سیستمی اضافه کنیم که تعداد \lr{page fault} را نشان دهد.
+		\begin{enumerate}
+			\item
+				 در ابتدا به ۲ فایل \lr{arch/x86/entry/syscalls/syscall_64.tbl} و \lr{arch/x86/entry/syscalls/syscall_32.tbl}، فراخوانی سیستمی دل‌خواه با شماره ۴۳۶ را اضافه می‌کنیم.
+				
+				\begin{figure}[!h]
+					\centering
+					\includegraphics[scale=0.4]{img/pic1.png}
+				\end{figure}
+				\begin{figure}[!h]
+					\centering
+					\includegraphics[scale=0.4]{img/pic2.png}
+				\end{figure}
+			\item 
+			 به عنوان \lr{micro} به فایل \lr{include/uapi/asm-generic/unistd.h} آن را اضافه می‌کنیم.
+			 \begin{figure}[!h]
+			 	\centering
+			 	\includegraphics[scale=0.4]{img/pic3.png}
+			 \end{figure}
+		 \item 	
+		 	حال می خواهیم کد خود را در \lr{kernel} اضافه کنیم.
+		 	در فایل \lr{include/linux/mm.h}، در انتهای فایل یک متغیر سراسری به نام \lr{pfcount} که نشان‌دهنده تعداد \lr{page fault}ها می‌باشد را اضافه می‌کنیم.
+		 	\begin{figure}[!hpbt]
+		 		\centering
+		 		\includegraphics[scale=0.4]{img/pic4.png}
+		 	\end{figure}
+	 	\item 
+	 		 در فایل \lr{include/linux/sched.h}، به \lr{task_struct} (که یک \lr{abstraction} برای پردازه‌های لینوکس می باشد) یک شمارنده \lr{page fault} اضافه می‌کنیم.
+	 		\begin{figure}[!hpbt]
+	 			\centering
+	 			\includegraphics[scale=0.4]{img/pic5.png}
+	 		\end{figure}
+ 			\item 
+ 				در فایل \lr{kernel/fork.c}، کد \lr{tsk->pf = 0} در جای مشخص اضافه می‌کنیم.
+ 				\begin{figure}[!hpbt]
+ 					\centering
+ 					\includegraphics[scale=0.4]{img/pic6.png}
+ 				\end{figure}
+ 			\item 
+ 			حال برای اینکه هر بار \lr{page fault} رخ داد، متغیر خود را افزایش دهیم، در فایل \lr{arch/x86/mm/fault.c} خطوط ۱۵۱۵، ۱۵۲۱ و ۱۵۲۲ را اضافه می‌کنیم.
+ 			\begin{figure}[!hpbt]
+ 				\centering
+ 				\includegraphics[scale=0.4]{img/pic7.png}
+ 			\end{figure}
+ 			
+ 			\item 
+ 			برای پیاده سازی تابع \lr{systemcall}، ابتدا کد زیر را به فایل \lr{kernel/sys.c} اضافه می کنیم.
+ 			\begin{figure}[!hpbt]
+ 				\centering
+ 				\includegraphics[scale=0.4]{img/pic8.png}
+ 			\end{figure}
+ 			\item 
+ 			 تعریف تابع \lr{systemcall} موردنظر را به فایل \lr{include/linux/syscalls.h} اضافه می‌کنیم.
+ 			 \begin{figure}[!hpbt]
+ 			 	\centering
+ 			 	\includegraphics[scale=0.4]{img/pic9.png}
+ 			 \end{figure}
+ 			 \item 
+ 			 
+ 			 در نهایت برای \lr{compatibility} کد زیر را به فایل \lr{kernel/sys_ni.c} اضافه می‌کنیم.
+ 			 
+ 			 \begin{figure}[!hpbt]
+ 			 	\centering
+ 			 	\includegraphics[scale=0.4]{img/pic10.png}
+ 			 \end{figure}
+ 		 
+ 			 \item 
+ 			 
+ 			 حال با استفاده از دستور \lr{\& nohup make -j12}، کرنل را کامپایل کرده و با استفاده از دستور \lr{cat nohup.out} خروجی آن‌را ملاحظه می‌کنیم.
+ 			 \begin{figure}[!hpbt]
+ 			 	\centering
+ 			 	\includegraphics[scale=0.4]{img/pic11.png}
+ 			 \end{figure}
+ 		 
+ 		 \begin{figure}[!hpbt]
+ 		 	\centering
+ 		 	\includegraphics[scale=0.4]{img/pic12.png}
+ 		 	
+ 		 \end{figure}
+ 	  		 	\begin{figure}[!hpbt]
+		 	 	\centering
+		 	 	\includegraphics[scale=0.4]{img/pic13.png}
+		 	 \end{figure}
+	 	 \begin{figure}[!hpbt]
+	 	 	\centering
+	 	 	\includegraphics[scale=0.4]{img/pic14.png}
+	 	 \end{figure}
+ 	 \begin{figure}[!hpbt]
+ 	 	\centering
+ 	 	\includegraphics[scale=0.4]{img/pic15.png}
+ 	 \end{figure}
+  			\begin{figure}[!hpbt]
+  				\centering
+  				\includegraphics[scale=0.4]{img/pic16.png}
+  			\end{figure}
+ 			 \item 
+ 			 
+ 			 با استفاده از فایل \lr{test.c} می‌خواهیم خروجی آن را ببینیم که با اجرای فایل خروجی \lr{test} حاصل از \lr{gcc test.c -o test} آن را بدست می‌آوریم.
+ 			 \begin{figure}[!hpbt]
+ 			 	\centering
+ 			 	\includegraphics[scale=0.4]{img/pic4.png}
+ 			 \end{figure}
+ 			 \begin{figure}[!hpbt]
+ 			 	\centering
+ 			 	\includegraphics[scale=0.4]{img/pic10.png}
+ 			 \end{figure}
+ 		 \begin{figure}[!hpbt]
+ 		 	\centering
+ 		 	\includegraphics[scale=0.4]{img/pic17.png}
+ 		 \end{figure}
+ 	 
+ 			 \item 
+ 			 اگر خروجی را با \lr{dmesg} چک کنیم مشاهده می‌کنیم که به ترتیب مجموع تعداد \lr{page fault} ها و تعداد \lr{page fault} های حال حاضر را مشاهده کنیم.
+		\end{enumerate}
 	\end{itemize}
