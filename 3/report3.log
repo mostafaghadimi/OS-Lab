@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2020.7.1)  9 AUG 2020 02:12
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2020.7.1)  10 AUG 2020 23:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1368,9 +1368,68 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 48.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 50.
 
-)
+[2]
+File: img/:proc:[pid].png Graphic file (type bmp)
+<img/:proc:[pid].png>
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 97.
+
+
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 98.
+
+File: img/cmdline.png Graphic file (type bmp)
+<img/cmdline.png>
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 105.
+
+
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 106.
+
+File: img/environ.png Graphic file (type bmp)
+<img/environ.png>
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 112.
+
+File: img/stat.png Graphic file (type bmp)
+<img/stat.png>
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 120.
+
+File: img/statm.png Graphic file (type bmp)
+<img/statm.png>
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 126.
+
+File: img/status.png Graphic file (type bmp)
+<img/status.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 133.
+
+File: img/cwd.png Graphic file (type bmp)
+<img/cwd.png>
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 139.
+
+File: img/exe.png Graphic file (type bmp)
+<img/exe.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 145.
+
+File: img/root.png Graphic file (type bmp)
+<img/root.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 26.
- [2]
+ [4]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 26.
  (./report3.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 26.
@@ -1381,12 +1440,12 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 25467 strings out of 493007
- 467468 string characters out of 6136720
- 631892 words of memory out of 5000000
- 29113 multiletter control sequences out of 15000+600000
+ 25503 strings out of 493007
+ 468037 string characters out of 6136720
+ 633892 words of memory out of 5000000
+ 29140 multiletter control sequences out of 15000+600000
  538039 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 53i,5n,74p,10447b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,5n,74p,10447b,615s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report3.pdf (2 pages).
+Output written on report3.pdf (4 pages).
