@@ -81,6 +81,86 @@ mostafa  501660  9328  0.1 gsd-prin
 	\begin{Verbatim}
 mostafa@mostafa-UX303UB:~$ which ls
 /bin/ls
+	\end{Verbatim}
+	
+	\item 
+	این دستور، مقدار حافظه‌ی اختصاص‌یافته به \lr{heap} و \lr{stack} را نمایش نمی‌دهد.
+	
+	\begin{figure}[!hpbt]
+		\centering
+		\includegraphics[scale=0.3]{./img/3.jpeg}
+	\end{figure}
+\end{enumerate}
+
+\newpage
+
+\سؤال{اشتراک حافظه}
+
+\begin{enumerate}
+	\item کتاب‌خانه‌های مشترک دستور \lr{ls}
+	\begin{Verbatim}[tabsize=4]
+> ldd /bin/ls
+	linux-vdso.so.1 (0x00007ffcce5bc000)
+	libselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x00007f33050d1000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f3304ce0000)
+	libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007f3304a6e000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f330486a000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f330551b000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f330464b000)
+	\end{Verbatim}
+	\item 
+	کتاب‌خانه‌های مشترک دستور \lr{nano}
+	\begin{Verbatim}[tabsize=4]
+> ldd /bin/nano
+	linux-vdso.so.1 (0x00007ffe442a4000)
+	libncursesw.so.5 => /lib/x86_64-linux-gnu/libncursesw.so.5 (0x00007f70b30f2000)
+	libtinfo.so.5 => /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007f70b2ec8000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f70b2ad7000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f70b28d3000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f70b355d000)
+	\end{Verbatim}
+	کتاب‌خانه‌های مشترک دستور \lr{pwd}
+	\begin{Verbatim}[tabsize=4]
+> ldd /bin/pwd
+	linux-vdso.so.1 (0x00007ffe9e7e9000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f8755132000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f875572c000)
+	\end{Verbatim}
+\end{enumerate}
+
+\newpage
+\سؤال{آدرس بخش‌های مختلف حافظه‌ی پردازه}
+
+\begin{enumerate}
+	\item آدرس نماد\footnote{\lr{symbol}}ها، پایان بخش‌های برنامه‌های مختلف را نمایش می‌دهد. 
+
+	کد برنامه اجرا شده:
+	\begin{Verbatim}[tabsize=4]
+#include <stdio.h>
+#include <stdlib.h>
+
+int
+main(int argc, char *argv[])
+{
+	printf("First address past:\n");
+	printf("    program text (etext)      %10p\n", &etext);
+	printf("    initialized data (edata)  %10p\n", &edata);
+	printf("    uninitialized data (end)  %10p\n", &end);
+	
+	exit(EXIT_SUCCESS);
+}
 
 	\end{Verbatim}
+	
+	خروجی:
+	
+	\begin{Verbatim}[tabsize=4]
+First address past:
+	program text (etext)      0x5587a52d27ad
+	initialized data (edata)  0x5587a54d3010
+	uninitialized data (end)  0x5587a54d3018
+	\end{Verbatim}
+	\item با توجه به خروجی قسمت ۱، با  شکل مطابفت دارد.
+	
+	
 \end{enumerate}
