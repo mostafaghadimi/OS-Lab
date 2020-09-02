@@ -49,4 +49,111 @@ void matmult_SSE(Mat44 &out, const Mat44 &A, const Mat44 &B)
 	out.row[3] = out3x;
 }
 	\end{Verbatim}
+	\item تست و آزمون کارکرد 
+		\begin{itemize}
+			\item اجرای ضرب معمولی ماتریسی
+			\begin{Verbatim}[tabsize=4]
+static void run_ref(Mat44 *out, const Mat44 *A, const Mat44 *B, int count)
+{
+	for (int i=0; i < count; i++)
+	{
+		int j = i & the_mask;
+		matmult_ref(out[j], A[j], B[j]);
+	}
+}
+
+			\end{Verbatim}
+			\item
+			اجرای ضرب به کمک \lr{SSE}
+			\begin{Verbatim}[tabsize=4]
+static void run_SSE(Mat44 *out, const Mat44 *A, const Mat44 *B, int count)
+{
+	for (int i=0; i < count; i++)
+	{
+		int j = i & the_mask;
+		matmult_SSE(out[j], A[j], B[j]);
+	}
+}
+			\end{Verbatim}
+		\end{itemize}
+	\item اجرای کد
+	\begin{Verbatim}[tabsize=4]
+int main(int argc, char **argv)
+{
+	static const struct {
+		const char *name;
+		void (*matmult)(Mat44 &out, const Mat44 &A, const Mat44 &B);
+	} variants[] = {
+		{ "ref",      matmult_ref },
+		{ "SSE",      matmult_SSE },
+	};
+	static const int nvars = (int) (sizeof(variants) / sizeof(*variants));
+	
+	srand(1234);
+	
+	// correctness tests
+	for (int i=0; i < 1000000; i++)
+	{
+		Mat44 A, B, out, ref_out;
+		randmat(A);
+		randmat(B);
+		matmult_ref(ref_out, A, B);
+		
+		for (int j=0; j < nvars; j++)
+		{
+			variants[j].matmult(out, A, B);
+			if (memcmp(&out, &ref_out, sizeof(out)) != 0)
+			{
+				fprintf(stderr, "%s fails test\n", variants[j].name);
+				exit(1);
+			}
+		}
+	}
+	
+	printf("all ok.\n");
+	
+	// performance tests
+	
+	static const struct {
+		const char *name;
+		void (*run)(Mat44 *out, const Mat44 *A, const Mat44 *B, int count);
+	} perf_variants[] = {
+		{ "ref",      run_ref },
+		{ "SSE",      run_SSE },
+	};
+	static const int nperfvars = (int) (sizeof(perf_variants) / sizeof(*perf_variants));
+	
+	/* 
+	test done on my laptop with following results:
+	ref: 59.00 cycles
+	SSE: 20.52 cycles
+	*/
+	
+	Mat44 Aperf, Bperf, out;
+	randmat(Aperf);
+	randmat(Bperf);
+	
+	for (int i=0; i < nvars; i++)
+	{
+		static const int nruns = 4096;
+		static const int muls_per_run = 4096;
+		unsigned long long best_time = ~0ull;
+		
+		for (int run=0; run < nruns; run++)
+		{
+			unsigned long long time = __rdtsc();
+			perf_variants[i].run(&out, &Aperf, &Bperf, muls_per_run);
+			time = __rdtsc() - time;
+			if (time < best_time)
+				best_time = time;
+		}
+		
+		double cycles_per_run = (double) best_time / (double) muls_per_run;
+		printf("%12s: %.2f cycles\n", perf_variants[i].name, cycles_per_run);
+	}
+	
+	return 0;
+}
+
+	\end{Verbatim}
 \end{itemize}

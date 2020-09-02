@@ -32,7 +32,7 @@ static inline __m128 lincomb_SSE(const __m128 &a, const Mat44 &B)
     return result;
 }
 
-// this is the right approach for SSE ... SSE4.2
+// implementing SSE
 void matmult_SSE(Mat44 &out, const Mat44 &A, const Mat44 &B)
 {
     // out_ij = sum_k a_ik b_kj
@@ -48,11 +48,9 @@ void matmult_SSE(Mat44 &out, const Mat44 &A, const Mat44 &B)
     out.row[3] = out3x;
 }
 
-// ---- testing stuff
-
+// Test
 static float randf()
 {
-    // assumes VC++ rand()
     return (rand() - 16384.0f) / 1024.0f;
 }
 
@@ -94,11 +92,9 @@ int main(int argc, char **argv)
     };
     static const int nvars = (int) (sizeof(variants) / sizeof(*variants));
     
-    srand(1234); // deterministic random tests(TM)
+    srand(1234);
 
     // correctness tests
-    // when compiled with /arch:SSE (or SSE2/AVX), all functions are
-    // supposed to return the exact same results!
     for (int i=0; i < 1000000; i++)
     {
         Mat44 A, B, out, ref_out;
@@ -131,9 +127,7 @@ int main(int argc, char **argv)
     static const int nperfvars = (int) (sizeof(perf_variants) / sizeof(*perf_variants));
     
     /* 
-       results on my sandy bridge laptop when compiling the code in x64
-       mode with VC2010 using /arch:AVX:
-        all ok.
+    test done on my laptop with following results:
                  ref: 59.00 cycles
                  SSE: 20.52 cycles
     */
