@@ -162,5 +162,166 @@ First address past:
 	\end{Verbatim}
 	\item با توجه به خروجی قسمت ۱، با  شکل مطابفت دارد.
 	
+	\item 
+	کد:
 	
+	\begin{Verbatim}[tabsize=4]
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv)
+{
+	printf("\nsbrk(0) %llu ",(unsigned long long)sbrk(0));
+	printf("\nmalloc(8) %llu ",(unsigned long long)malloc(8));
+	printf("\nmalloc(8) %llu ",(unsigned long long)malloc(8));
+	printf("\nsbrk(8) %llu ",(unsigned long long)sbrk(8));
+	printf("\nmalloc(8) %llu ",(unsigned long long)malloc(8));
+	printf("\nmalloc(8) %llu ",(unsigned long long)malloc(8));  
+	printf("\n");
+	return 0;
+}
+	\end{Verbatim}
+
+	خروجی:
+	\begin{Verbatim}[tabsize=4]
+sbrk(0) 30306304 
+malloc(8) 30306320 
+malloc(8) 30306352 
+sbrk(8) 30441472 
+malloc(8) 30306384 
+malloc(8) 30306416 
+	\end{Verbatim}
+	\item 
+	آدرس‌ها در حال کاهش هستند؛ زیرا \lr{stack} در حال پر شدن است.
+	
+	کد: 
+	
+	\begin{Verbatim}[tabsize=4]
+#include <stdio.h>
+#include <stdlib.h>
+
+int f() {
+	static int depth = 0;
+	depth++;
+	int i;
+	printf("i address=%p\n", &i);
+	if (depth < 100) {
+		f();
+	}
+}
+
+int main() {
+	f();
+}
+	\end{Verbatim}
+	
+	خروجی:
+	
+	\begin{Verbatim}[tabsize=4]
+> gcc -o recursive recursive.c
+> ./recursive
+i address=0x7ffc6c603ef4
+i address=0x7ffc6c603ed4
+i address=0x7ffc6c603eb4
+i address=0x7ffc6c603e94
+i address=0x7ffc6c603e74
+i address=0x7ffc6c603e54
+i address=0x7ffc6c603e34
+i address=0x7ffc6c603e14
+i address=0x7ffc6c603df4
+i address=0x7ffc6c603dd4
+i address=0x7ffc6c603db4
+i address=0x7ffc6c603d94
+i address=0x7ffc6c603d74
+i address=0x7ffc6c603d54
+i address=0x7ffc6c603d34
+i address=0x7ffc6c603d14
+i address=0x7ffc6c603cf4
+i address=0x7ffc6c603cd4
+i address=0x7ffc6c603cb4
+i address=0x7ffc6c603c94
+i address=0x7ffc6c603c74
+i address=0x7ffc6c603c54
+i address=0x7ffc6c603c34
+i address=0x7ffc6c603c14
+i address=0x7ffc6c603bf4
+i address=0x7ffc6c603bd4
+i address=0x7ffc6c603bb4
+i address=0x7ffc6c603b94
+i address=0x7ffc6c603b74
+i address=0x7ffc6c603b54
+i address=0x7ffc6c603b34
+i address=0x7ffc6c603b14
+i address=0x7ffc6c603af4
+i address=0x7ffc6c603ad4
+i address=0x7ffc6c603ab4
+i address=0x7ffc6c603a94
+i address=0x7ffc6c603a74
+i address=0x7ffc6c603a54
+i address=0x7ffc6c603a34
+i address=0x7ffc6c603a14
+i address=0x7ffc6c6039f4
+i address=0x7ffc6c6039d4
+i address=0x7ffc6c6039b4
+i address=0x7ffc6c603994
+i address=0x7ffc6c603974
+i address=0x7ffc6c603954
+i address=0x7ffc6c603934
+i address=0x7ffc6c603914
+i address=0x7ffc6c6038f4
+i address=0x7ffc6c6038d4
+i address=0x7ffc6c6038b4
+i address=0x7ffc6c603894
+i address=0x7ffc6c603874
+i address=0x7ffc6c603854
+i address=0x7ffc6c603834
+i address=0x7ffc6c603814
+i address=0x7ffc6c6037f4
+i address=0x7ffc6c6037d4
+i address=0x7ffc6c6037b4
+i address=0x7ffc6c603794
+i address=0x7ffc6c603774
+i address=0x7ffc6c603754
+i address=0x7ffc6c603734
+i address=0x7ffc6c603714
+i address=0x7ffc6c6036f4
+i address=0x7ffc6c6036d4
+i address=0x7ffc6c6036b4
+i address=0x7ffc6c603694
+i address=0x7ffc6c603674
+i address=0x7ffc6c603654
+i address=0x7ffc6c603634
+i address=0x7ffc6c603614
+i address=0x7ffc6c6035f4
+i address=0x7ffc6c6035d4
+i address=0x7ffc6c6035b4
+i address=0x7ffc6c603594
+i address=0x7ffc6c603574
+i address=0x7ffc6c603554
+i address=0x7ffc6c603534
+i address=0x7ffc6c603514
+i address=0x7ffc6c6034f4
+i address=0x7ffc6c6034d4
+i address=0x7ffc6c6034b4
+i address=0x7ffc6c603494
+i address=0x7ffc6c603474
+i address=0x7ffc6c603454
+i address=0x7ffc6c603434
+i address=0x7ffc6c603414
+i address=0x7ffc6c6033f4
+i address=0x7ffc6c6033d4
+i address=0x7ffc6c6033b4
+i address=0x7ffc6c603394
+i address=0x7ffc6c603374
+i address=0x7ffc6c603354
+i address=0x7ffc6c603334
+i address=0x7ffc6c603314
+i address=0x7ffc6c6032f4
+i address=0x7ffc6c6032d4
+i address=0x7ffc6c6032b4
+i address=0x7ffc6c603294
+	\end{Verbatim}
 \end{enumerate}

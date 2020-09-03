@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2020.7.1)  2 SEP 2020 20:42
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2020.7.1)  4 SEP 2020 02:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1421,9 +1421,9 @@ Missing character: There is no ‏ in font [lmmono10-regular]:!
 Missing character: There is no ‏ in font [lmmono10-regular]:!
 Missing character: There is no ‏ in font [lmmono10-regular]:!
 Missing character: There is no ‏ in font [lmmono10-regular]:!
- [4])
+ [4] [5] [6] [7])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 26.
- [5]
+ [8]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 26.
  (./report6.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 26.
@@ -1440,6 +1440,6 @@ Here is how much of TeX's memory you used:
  29131 multiletter control sequences out of 15000+600000
  540253 words of font info for 84 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 53i,8n,74p,10447b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,8n,74p,10447b,623s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report6.pdf (5 pages).
+Output written on report6.pdf (8 pages).
